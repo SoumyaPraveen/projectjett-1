@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
-        
+        System.out.println("headre"+authHeader);
         // Skip if no Bearer token
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -54,26 +54,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
-        
+        System.out.println("token"+token);
+
         try {
             String userEmail = jwtUtil.extractUsername(token);
-            System.out.println("=== DEBUG START ===");
-            System.out.println("Raw email from token: '" + userEmail + "'");
-            System.out.println("Trimmed email: '" + userEmail.trim() + "'");
 
-            // Test repository lookup directly
-            Student user = studentReposirtory.findByEmail(userEmail.trim());
-            System.out.println("User found in DB: " + user.getId());
-
-            if (user!=null) {
-                System.out.println("User status - Active: " + user.isActive());
-            } else {
-                System.out.println("Available emails in DB: " + 
-                		studentReposirtory.findAll().stream()
-                        .map(Student::getEmail)
-                        .collect(Collectors.toList()));
-            }
-            System.out.println("=== DEBUG END ===");
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // Load UserDetails (including roles)
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
@@ -91,6 +76,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authToken);
+                    System.out.println("ok");
                 }
             }
         } catch (Exception e) {

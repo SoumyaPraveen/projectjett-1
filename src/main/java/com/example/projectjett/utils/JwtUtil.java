@@ -18,9 +18,10 @@ public class JwtUtil {
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 hours
 
     // Generate JWT Token without encryption (just signing)
-    public String generateToken(String username) {
+    public String generateToken(String username,String studentId) {
         return JWT.create()
                 .withSubject(username) // This could be the user's email or ID
+                .withClaim("studentId", studentId)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(SECRET_KEY)); // HMAC256 signing, no encryption
@@ -62,11 +63,17 @@ public class JwtUtil {
         // Decode and verify the token
         return verifier.verify(token);
     }
+    public String extractStudentId(String token) {
+        DecodedJWT decodedJWT = JWT.decode(token);
+        return decodedJWT.getClaim("studentId").asString(); // Extract studentId claim
+    }
 
     // Method to extract user info from token (Example: email, userId)
     public  String extractUserInfo(DecodedJWT decodedJWT) {
         return decodedJWT.getSubject(); // Extracts the subject (e.g., username or email)
     }
+    
+    
 }
 
 

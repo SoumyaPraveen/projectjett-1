@@ -10,7 +10,7 @@ public class FeedbackDTO {
 	private String id;
 	private String  studentId;
 	private String feedback;
-	private int rating;
+	private Float rating;
 	public String getId() {
 		
 		return id;
@@ -24,7 +24,7 @@ public class FeedbackDTO {
 	public void setStudent(String  studentId) {
 		this.studentId = studentId;
 	}
-	public FeedbackDTO(String id, String  studentId,int rating) {
+	public FeedbackDTO(String id, String  studentId,Float rating) {
 		super();
 		this.id = id;
 		this.rating = rating;
@@ -39,10 +39,10 @@ public class FeedbackDTO {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
-	public int getRating() {
+	public Float getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(Float rating) {
 		this.rating = rating;
 	}
 	

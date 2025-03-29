@@ -36,11 +36,11 @@ public class Feedback {
 		this.feedback = feedback;
 	}
 
-	public int getRating() {
+	public Float getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Float rating) {
 		this.rating = rating;
 	}
 
@@ -61,7 +61,7 @@ public class Feedback {
 	}
 
 	private String feedback;
-	private int rating;
+	private Float rating;
 
 	@CreatedDate
 	private Date createdAt;

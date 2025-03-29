@@ -87,7 +87,7 @@ public class StudentService {
 		}
 	
 		if (password.equals(studentop.getPassword())) { // Check hashed password
-			return jwtutil.generateToken(email); // Generate JWT token
+			return jwtutil.generateToken(email,studentop.getId()); // Generate JWT token
 		} else {
 			throw new RuntimeException("Incorrect password");
 		}
@@ -104,7 +104,7 @@ public class StudentService {
 		}
 
 		else {
-			  String token = jwtutil.generateToken(email);
+			  String token = jwtutil.generateToken(email,studentop.getId());
 			
 			studentop.setResetToken(token);
 			studentRepository.save(studentop);

@@ -19,10 +19,10 @@ public Feedback addFeedback(FeedbackDTO feedbackDto) {
 
 	Feedback feedback = new Feedback();
 	feedback.setId(feedbackDto.getId());
+	
 	feedback.setStudent(feedbackDto.getstudentId());
 	feedback.setRating(feedbackDto.getRating());
-
+System.out.println(feedbackDto.getRating());
 	return feedbackRepo.save(feedback);
-
 }
 }
